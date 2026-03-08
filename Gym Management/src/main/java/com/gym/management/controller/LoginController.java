@@ -1,12 +1,29 @@
 package com.gym.management.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import com.gym.management.model.User;
+import com.gym.management.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
+@RequestMapping("/gym")
+@CrossOrigin(origins = "http://localhost:3000")
 public class LoginController {
-    @GetMapping("/hello")
-    public String hello(){
-        return "Spring boot 4.0.2 is working \uD83D\uDE80";
+
+    @Autowired
+    UserService userService;
+
+    @PostMapping("/signup")
+    public User signup(@RequestBody User user){
+
+        return userService.saveUser(user)
+                ;
     }
+
+    @GetMapping("/welcome")
+    public String welcomeMessage(){
+        return "welcome to gym API";
+
+    }
+
 }
